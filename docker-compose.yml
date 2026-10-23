@@ -1,0 +1,19 @@
+services:
+  ai-image-detector:
+    build: .
+    container_name: ai-image-detector
+    ports:
+      - "8080:80"
+    environment:
+      DB_NAME: ${DB_NAME:-image_detector}
+      DB_USER: ${DB_USER:-detector_app}
+      DB_PASSWORD: ${DB_PASSWORD:-change-me-for-class}
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-change-me-root}
+    volumes:
+      - uploads:/var/www/html/uploads
+      - mariadb:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  uploads:
+  mariadb:
